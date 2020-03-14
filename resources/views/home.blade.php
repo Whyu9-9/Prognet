@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <title>Dagangbaju.com</title>
+<link rel="shortcut icon" href="{{asset('assets/User/images/shirt.png')}}" type="image/x-icon">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
@@ -26,13 +27,12 @@
 				<div class="row">
 					<div class="col">
 						<div class="header_content d-flex flex-row align-items-center justify-content-start">
-							<div class="logo"><a href="/">Dagangbaju</a></div>
+							<div class="logo"><a href="/">Dagangbaju.com</a></div>
 							<nav class="main_nav">
 								<ul>
 									<li class="hassubs active">
 										<a href="/">Home</a>
 										<ul>
-											<li><a href="/categories">Categories</a></li>
                                             <li><a href="/product">Product</a></li>
                                             @auth
 											<li><a href="/cart">Cart</a></li>
@@ -50,7 +50,6 @@
 											<li><a href="categories.html">Category</a></li>
 										</ul>
 									</li>
-                                    <li><a href="#">Accessories</a></li>
                                     @guest
                                     @if (Route::has('register'))
                                         <li><a href="{{ route('register') }}">Register</a></li>
@@ -293,7 +292,7 @@
 				<div class="avds_background" style="background-image:url(assets/User/images/avds_small.jpg)"></div>
 				<div class="avds_small_inner">
 					<div class="avds_discount_container">
-						<img src="images/discount.png" alt="">
+						<img src="{{ asset('assets/User/images/discount.png')}}" alt="">
 						<div>
 							<div class="avds_discount">
 								<div>20<span>%</span></div>
