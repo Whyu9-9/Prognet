@@ -29,6 +29,8 @@ Route::get('/user', function(){
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/authlogin', 'UsersController@login');
 Route::get('/authlogout', 'UsersController@logout');
+Route::get('/profile', 'UsersController@profile');
+Route::post('/profile', 'UsersController@update_avatar');
 Route::get('/categories', 'CategoriesController@categories');
 Route::get('/checkout', 'CheckoutController@checkout');
 Route::get('/product', 'ProductController@product');
