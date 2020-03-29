@@ -19,7 +19,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name', 'email','profile_image','status', 'password',
     ];
 
-    protected $table = 'users';
     /**
      * The attributes that should be hidden for arrays.
      *

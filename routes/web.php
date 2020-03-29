@@ -17,18 +17,17 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/admin', function(){
-    return view('#');
-})->middleware('auth:admins');
+Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
-Route::get('/user', function(){
-    return view('views.home');
-})->middleware('auth:users');
-
+Route::prefix('admin')->group(function(){
+    Route::get('/login', 'Auth\AdminLoginController@showLoginform')->middleware('guest')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->middleware('guest')->name('admin.login.submit');
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/authlogin', 'UsersController@login');
-Route::get('/authlogout', 'UsersController@logout');
+
 Route::get('/profile', 'UsersController@profile');
 Route::post('/profile', 'UsersController@update_avatar');
 Route::get('/categories', 'CategoriesController@categories');
