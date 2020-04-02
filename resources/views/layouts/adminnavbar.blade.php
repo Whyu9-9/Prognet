@@ -1,39 +1,8 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-<title>Admin</title>
-<link rel="shortcut icon" href="{{asset('assets/User/images/shirt.png')}}" type="image/x-icon">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<link href="{{ asset('assets/Admin/css/bootstrap.css')}}" rel="stylesheet" type="text/css" media="all">
-<!-- Custom Theme files -->
-<link href="{{ asset('assets/Admin/css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
-<!--js-->
-<script src="{{ asset('assets/Admin/js/jquery-2.1.1.min.js')}}"></script> 
-<!--icons-css-->
-<link href="{{ asset('assets/Admin/css/font-awesome.css')}}" rel="stylesheet"> 
-<!--Google Fonts-->
-<link href='//fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Work+Sans:400,500,600' rel='stylesheet' type='text/css'>
-<!--static chart-->
-<script src="{{ asset('assets/Admin/js/Chart.min.js')}}"></script>
-<!--//charts-->
-
-<!--skycons-icons-->
-<script src="{{ asset('assets/Admin/js/skycons.js')}}"></script>
-<!--//skycons-icons-->
-</head>
-<body>	
-<div class="page-container">	
-   <div class="left-content">
-	   <div class="mother-grid-inner">
-			<!--header start here-->
+                <!--header start here-->
 				<div class="header-main">
 					<div class="header-left">
 							<div class="logo-name">
-									 <a href="index.html"> <h1>Admin Dashboard</h1> 
+									 <a href="{{ url('/admin') }}"> <h1>Admin Dashboard</h1> 
 									<!--<img id="logo" src="" alt="Logo"/>--> 
 								  </a> 								
 							</div>
@@ -232,102 +201,6 @@
 			 
 		});
 		</script>
-		<!-- /script-for sticky-nav -->
-<!--inner block start here-->
-<div class="inner-block">
-<!--market updates updates-->
-	 <div class="market-updates">
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-1">
-					<div class="col-md-8 market-update-left">
-						<h3>{{ \App\User::all()->count() }}</h3>
-						<h4>Registered User</h4>
-						<p>Other hand, we denounce</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-file-text-o"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-2">
-				 <div class="col-md-8 market-update-left">
-					<h3>135</h3>
-					<h4>Daily Visitors</h4>
-					<p>Other hand, we denounce</p>
-				  </div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-eye"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-3">
-					<div class="col-md-8 market-update-left">
-						<h3>23</h3>
-						<h4>New Messages</h4>
-						<p>Other hand, we denounce</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-envelope-o"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-		   <div class="clearfix"> </div>
-		</div>
-<!--market updates end here-->
-<!--mainpage chit-chating-->
-<div class="chit-chat-layer1">
-	
-</div>
-<!--main page chit chating end here-->
-<!--main page chart start here-->
-<div class="main-page-charts">
-   <div class="main-page-chart-layer1">
-		<div class="col-md-6 chart-layer1-left"> 
-			<div class="glocy-chart">
-			<div class="span-2c">  
-                        <h3 class="tlt">Sales Analytics</h3>
-                        <canvas id="bar" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
-                        <script>
-                            var barChartData = {
-                            labels : ["Jan","Feb","Mar","Apr","May","Jun","jul"],
-                            datasets : [
-                                {
-                                    fillColor : "#FC8213",
-                                    data : [65,59,90,81,56,55,40]
-                                },
-                                {
-                                    fillColor : "#337AB7",
-                                    data : [28,48,40,19,96,27,100]
-                                }
-                            ]
-
-                        };
-                            new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-
-                        </script>
-                    </div> 			  		   			
-			</div>
-		</div>
-	 <div class="clearfix"> </div>
-  </div>
- </div>
-</div>
-<!--inner block end here-->
-<!--copy rights start here-->
-<!--COPY rights end here-->
-</div>
-</div>
-@extends('layouts.sidebaradmin')
-<!--scrolling js-->
-		<script src="{{ asset('assets/Admin/js/jquery.nicescroll.js')}}"></script>
-		<script src="{{ asset('assets/Admin/js/scripts.js')}}"></script>
-		<!--//scrolling js-->
-<script src="{{ asset('assets/Admin/js/bootstrap.js')}}"> </script>
-<!-- mother grid end here-->
-</body>
-</html>                     
+        <!-- /script-for sticky-nav -->
+<div class="chit-chat-layer1"></div>
+@yield('content')

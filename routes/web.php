@@ -24,6 +24,7 @@ Route::prefix('admin')->group(function(){
     Route::post('/login', 'Auth\AdminLoginController@login')->middleware('guest')->name('admin.login.submit');
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::resource('/products', 'AdminProductController');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -35,4 +36,5 @@ Route::get('/checkout', 'CheckoutController@checkout');
 Route::get('/product', 'ProductController@product');
 Route::get('/cart', 'CartController@cart');
 
+Route::resource('products', 'AdminProductController');
 Auth::routes(['verify' => true]);
