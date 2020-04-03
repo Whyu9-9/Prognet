@@ -234,86 +234,63 @@
 		</script>
 		<!-- /script-for sticky-nav -->
 <!--inner block start here-->
+<div class="chit-chat-layer1"></div>
 <div class="inner-block">
 <!--market updates updates-->
-	 <div class="market-updates">
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-1">
-					<div class="col-md-8 market-update-left">
-						<h3>{{ \App\User::all()->count() }}</h3>
-						<h4>Registered User</h4>
-						<p>Other hand, we denounce</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-file-text-o"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-2">
-				 <div class="col-md-8 market-update-left">
-					<h3>135</h3>
-					<h4>Daily Visitors</h4>
-					<p>Other hand, we denounce</p>
-				  </div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-eye"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-			<div class="col-md-4 market-update-gd">
-				<div class="market-update-block clr-block-3">
-					<div class="col-md-8 market-update-left">
-						<h3>23</h3>
-						<h4>New Messages</h4>
-						<p>Other hand, we denounce</p>
-					</div>
-					<div class="col-md-4 market-update-right">
-						<i class="fa fa-envelope-o"> </i>
-					</div>
-				  <div class="clearfix"> </div>
-				</div>
-			</div>
-		   <div class="clearfix"> </div>
-		</div>
+<table class="table table-bordered" style="width:650px;" align="center">
+    <td>
+        <h2 style="margin-top: 12px;" class="text-center">Add Product</a></h2>
+        <br>
+        <form action="{{ route('products.store') }}" method="POST" name="add_product">
+        {{ csrf_field() }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <strong>Product Name</strong>
+                    <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name">
+                    <span class="text-danger">{{ $errors->first('product_name') }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <strong>Product Price</strong>
+                    <input type="text" name="price" class="form-control" placeholder="Rp. ">
+                    <span class="text-danger">{{ $errors->first('price') }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <strong>Description</strong>
+                    <textarea class="form-control" col="4" name="description" placeholder="Enter Description"></textarea>
+                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <strong>Stock</strong>
+                    <input type="text" class="form-control" col="4" name="stock" placeholder="Enter Stock"></textarea>
+                    <span class="text-danger">{{ $errors->first('stock') }}</span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <strong>Weight</strong>
+                    <input type="text" class="form-control" col="4" name="weight" placeholder="Gram"></textarea>
+                    <span class="text-danger">{{ $errors->first('weight') }}</span>
+                </div>
+            </div>
+            <div class="col-md-12" align="center">
+                <button type="submit" class="btn btn-primary" >Submit</button>
+            </div>
+        </div> 
+        </form>
+    </td>
+    </table>
 <!--market updates end here-->
 <!--mainpage chit-chating-->
 <div class="chit-chat-layer1"></div>
 <!--main page chit chating end here-->
 <!--main page chart start here-->
-<div class="main-page-charts">
-   <div class="main-page-chart-layer1">
-		<div class="col-md-6 chart-layer1-left"> 
-			<div class="glocy-chart">
-			<div class="span-2c">  
-                        <h3 class="tlt">Sales Analytics</h3>
-                        <canvas id="bar" height="300" width="400" style="width: 400px; height: 300px;"></canvas>
-                        <script>
-                            var barChartData = {
-                            labels : ["Jan","Feb","Mar","Apr","May","Jun","jul"],
-                            datasets : [
-                                {
-                                    fillColor : "#FC8213",
-                                    data : [65,59,90,81,56,55,40]
-                                },
-                                {
-                                    fillColor : "#337AB7",
-                                    data : [28,48,40,19,96,27,100]
-                                }
-                            ]
-
-                        };
-                            new Chart(document.getElementById("bar").getContext("2d")).Bar(barChartData);
-
-                        </script>
-                    </div> 			  		   			
-			</div>
-		</div>
-	 <div class="clearfix"> </div>
-  </div>
- </div>
 </div>
 <!--inner block end here-->
 <!--copy rights start here-->

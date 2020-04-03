@@ -10,6 +10,7 @@
      'price',
      'description',
      'stock',
+     'weight',
     ];
 
     protected $casts = [
