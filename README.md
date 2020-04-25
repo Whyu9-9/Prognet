@@ -1,4 +1,4 @@
-<p align="center"><img src="https://www.facebook.com/photo.php?fbid=926623167755091&set=a.129147460836003&type=3&theater" width="400"></p>
+<p align="center"><img src="https://3.bp.blogspot.com/-IUyIJZ9hT_Y/WLtq_FlHT4I/AAAAAAAAF8o/EWrqnNUTWBQ_H2Jxv9MRv-zPVLv1r26mgCLcB/s1600/logo-teknologi-informasi-universitas-udayana-ti-unud-jhonarendra.png" width="400"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
