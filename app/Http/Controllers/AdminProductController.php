@@ -39,7 +39,8 @@ class AdminProductController extends Controller
                     ->join('product_category_details', 'product_categories.id', '=', 'product_category_details.category_id')
                     ->select('product_categories.*', 'product_category_details.*')
                     ->get();
-        return view('product.adminlist',compact('products','categories'));
+        $discount = Discount::orderBy('id_product')->first();
+        return view('product.adminlist',compact('products','categories','discount'));
     }
 
     /**

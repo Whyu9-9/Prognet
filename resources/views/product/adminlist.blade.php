@@ -293,7 +293,11 @@
 					@endif
 				@endforeach
 				</td>
-				<td align="center"><a class="btn btn-primary fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
+				@if($product->id == $discount->id_product)
+					<td align="center"><a class="btn btn-primary fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
+				@else
+					<td align="center"><a class="btn btn-danger fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
+				@endif
 				<td align="center">
 					<a class="btn-sm btn-info fa fa-eye" href="{{ route('products.show',$product->id) }}"></a>
 				
