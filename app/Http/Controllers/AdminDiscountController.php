@@ -101,9 +101,9 @@ class AdminDiscountController extends Controller
         ];
 
         $this->validate($request,[
-            'percentage' => 'required|unique:discounts|numeric',
-            'start' => 'required|unique:discounts|date',
-            'end' => 'required|unique:discounts|date',
+            'percentage' => 'required|numeric',
+            'start' => 'required|date',
+            'end' => 'required|date',
         ],$messages);
 
         $update = [
@@ -112,8 +112,11 @@ class AdminDiscountController extends Controller
             'end' => $request->end,
         ];
         Discount::where('id', $id)->update($update);
-        $idd =  Product::orderBy('id', 'desc')->first()->id;
-        return Redirect::to('/discounts/'.$idd)->with(['success' => 'Berhasil Mengedit Discount']);
+        $categories = DB::table('discounts')
+                    ->select('id_product')
+                    ->where('id','=',$id)
+                    ->first();
+        return Redirect::to('/discounts/'."{$categories->id_product}")->with(['success' => 'Berhasil Mengedit Discount']);
     }
 
     /**

@@ -293,11 +293,14 @@
 					@endif
 				@endforeach
 				</td>
-				@if($product->id == $discount->id_product)
-					<td align="center"><a class="btn btn-primary fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
-				@else
-					<td align="center"><a class="btn btn-danger fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
-				@endif
+				<td align="center"><a 
+					@foreach($discount as $discounts)
+						@if($product->id == $discounts->id_product)
+							class="btn btn-primary fa fa-percent"
+						@endif
+					@endforeach
+						class="btn btn-danger fa fa-percent"
+					href="{{ route('discounts.show',$product->id) }}"></a></td>
 				<td align="center">
 					<a class="btn-sm btn-info fa fa-eye" href="{{ route('products.show',$product->id) }}"></a>
 				

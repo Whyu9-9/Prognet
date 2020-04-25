@@ -39,7 +39,9 @@ class AdminProductController extends Controller
                     ->join('product_category_details', 'product_categories.id', '=', 'product_category_details.category_id')
                     ->select('product_categories.*', 'product_category_details.*')
                     ->get();
-        $discount = Discount::orderBy('id_product')->first();
+        $discount = DB::table('discounts')
+                    ->select('discounts.*')
+                    ->get();
         return view('product.adminlist',compact('products','categories','discount'));
     }
 
@@ -269,8 +271,8 @@ class AdminProductController extends Controller
         ];
 
         $this->validate($request,[
-            'percentage' => 'required|unique:discounts|numeric',
-            'start' => 'required|unique:discounts|date',
+            'percentage' => 'required|numeric',
+            'start' => 'required|date',
             'end' => 'required|date',
         ],$messages);
 
