@@ -1,15 +1,12 @@
 <p align="center"><img src="https://3.bp.blogspot.com/-IUyIJZ9hT_Y/WLtq_FlHT4I/AAAAAAAAF8o/EWrqnNUTWBQ_H2Jxv9MRv-zPVLv1r26mgCLcB/s1600/logo-teknologi-informasi-universitas-udayana-ti-unud-jhonarendra.png" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+<h1 align="center">
+HIDUP TI!
+</h1>
 
 ## About Praktikum Prognet Kelompok 1
 
-Praktikum Prognet Kelompok 1 is a web app creation practice that utillizing the laravel framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of Wahyu while developing the module of Praktikum Prognet Kelompok 1 by easing common tasks used in many web projects, such as:
+Praktikum Prognet Kelompok 1 is a web app creation practice that utillizing the laravel framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of Wahyu (main protagonist of Praktikum Prognet Kelompok 1) while developing the module of Praktikum Prognet Kelompok 1 by easing common tasks used in many web projects, such as:
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
