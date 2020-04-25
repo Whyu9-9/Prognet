@@ -1,10 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Category;
+use App\Discount;
+use App\Product_Category_Detail;
+use App\Product_image;
 use Redirect;
+
 
 class AdminProductController extends Controller
 {
@@ -25,9 +30,16 @@ class AdminProductController extends Controller
 
     public function index()
     {
-        $data['products'] = Product::orderBy('id')->paginate(10);
-  
-        return view('product.adminlist',$data);
+        /*$data['products'] = Product::orderBy('id')->paginate(10);*/
+        $products = DB::table('products')
+        ->select('products.*')
+        ->where('products.deleted_at','=', NULL)
+        ->orderby('id','desc')->paginate(10);
+        $categories = DB::table('product_categories')
+                    ->join('product_category_details', 'product_categories.id', '=', 'product_category_details.category_id')
+                    ->select('product_categories.*', 'product_category_details.*')
+                    ->get();
+        return view('product.adminlist',compact('products','categories'));
     }
 
     /**
@@ -37,7 +49,9 @@ class AdminProductController extends Controller
      */
     public function create()
     {
-        return view('product.admincreate');
+        $categories = Category::all();
+        /*$categories = Category::get();*/
+        return view('product.admincreate', compact('categories'));
     }
 
     /**
@@ -48,18 +62,65 @@ class AdminProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'price' => 'required',
-            'product_name' => 'required',
-            'description' => 'required',
-            'stock' => 'required',
-            'weight' => 'required',
+        $messages = [
+            'required' => ':attribute Wajib Diisi',
+            'max' => ':attribute Harus Diisi maksimal :max karakter',
+            'min' => ':attribute Harus Diisi minimum :min karakter',
+            'string' => ':attribute Hanya Diisi Huruf dan Angka',
+            'confirmed' => ':attribute Konfirmasi Password Salah',
+            'unique' => ':attribute sudah ada',
+            'email' => 'attribute Format Email Salah',
+        ];
+
+        $this->validate($request,[
+            'product_name' => 'required|unique:products|max:100',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|min:0',
+        ],$messages);
+
+    	$product = new Product;
+        
+        $product->product_name = $request->product_name;
+    	$product->price = $request->price;
+    	$product->description = $request->description;
+    	$product->product_rate = 0;
+    	$product->stock = $request->stock;
+    	$product->weight = $request->weight;
+        $product->save();
+
+        $datakategori = $request->category_id;
+        foreach($datakategori as $kategori){
+            $category = new Product_Category_Detail;
+            $product_id = Product::orderBy('id', 'desc')->first()->id;
+            $category->category_id = $kategori;
+            $category->product_id = $product_id;
+            $category->save();
+        }
+
+        $this->validate($request, [
+            'files.*' => 'required',
         ]);
-  
-        Product::create($request->all());
-   
-        return Redirect::to('products')
-       ->with('success','Great! Product created successfully.');
+
+        $id = Product::orderBy('id', 'desc')->first()->id;
+        if($id){
+        $files = [];
+        foreach ($request->file('files') as $file) {
+            if($file->isValid()){
+                $nama_image = time()."_".$file->getClientOriginalName();
+                $folder = 'uploads/product_images';
+                $file->move($folder,$nama_image);
+                $files[] = [
+                    'product_id' => $id,
+                    'image_name' => $nama_image,
+                    'created_at'=>now(),
+                    'updated_at'=>now(),
+                ];
+            }
+        }
+        Product_image::insert($files);
+    }
+        return Redirect::to('products')->with(['success' => 'Berhasil Menambah Produk']);
     }
 
     /**
@@ -70,7 +131,22 @@ class AdminProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $where = array('products.id' => $id);
+    	$products['products'] = DB::table('products')
+            ->join('product_category_details', 'products.id','=','product_category_details.product_id')
+            ->join('product_categories', 'product_categories.id','=','product_category_details.category_id')
+            ->select('products.*','product_categories.category_name')
+            ->where($where)->first();
+        $image = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('product_images.*')
+            ->where($where)->get();
+        $categories = DB::table('product_categories')
+            ->join('product_category_details', 'product_categories.id', '=', 'product_category_details.category_id')
+            ->join('products', 'products.id', '=', 'product_category_details.product_id')
+            ->select('product_categories.category_name')
+            ->where('products.id', '=', $id)->get();
+        return view('product.adminlistdetail', compact('products', 'image','categories','id'));
     }
 
     /**
@@ -81,10 +157,12 @@ class AdminProductController extends Controller
      */
     public function edit($id)
     {
-        $where = array('id' => $id);
-        $data['product_info'] = Product::where($where)->first();
-
-        return view('product.edit', $data);
+        $category = Category::all();
+        $categoryDetail = DB::table('product_category_details')
+            ->select('category_id')
+            ->where('product_id', '=', $id)->get();
+        $products = Product::find($id);
+        return view('product.adminedit', compact('category','categoryDetail', 'products', 'id'));
     }
 
     /**
@@ -96,32 +174,154 @@ class AdminProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'price' => 'required',
-            'product_name' => 'required',
-            'description' => 'required',
-            'stock' => 'required',
-            'weight' => 'required',
-        ]);
-        
-        $update = ['price' => $request->price, 'description' => $request->description,
-                'product_name' => $request->product_name, 'stock' => $request->stock];
-        Product::where('id',$id)->update($update);
-  
-        return Redirect::to('products')
-       ->with('success','Great! Product updated successfully');
+        $messages = [
+            'required' => ':attribute Wajib Diisi',
+            'max' => ':attribute Harus Diisi maksimal :max karakter',
+            'min' => ':attribute Harus Diisi minimum :min karakter',
+            'string' => ':attribute Hanya Diisi Huruf dan Angka',
+            'confirmed' => ':attribute Konfirmasi Password Salah',
+            'unique' => ':attribute Username sudah ada',
+            'email' => 'attribute Format Email Salah',
+        ];
+
+        $this->validate($request,[
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|min:0',
+        ],$messages);
+
+        $update = [
+            'product_name' => $request->product_name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'stock' => $request->stock,
+            'weight' => $request->weight,
+        ];
+        Product::where('id', $id)->update($update);
+
+        Product_Category_Detail::where('product_id', '=', $id)->delete();
+        $datakategori = $request->category_id;
+        foreach($datakategori as $category){
+            $categoryDetail = new Product_Category_Detail;
+            $categoryDetail->product_id = $id;
+            $categoryDetail->category_id = $category;
+            $categoryDetail->save();
+        }
+        return Redirect::to('products')->with(['success' => 'Berhasil Mengedit Produk']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Product::where('id',$id)->delete();
-  
-        return Redirect::to('products')->with('success','Product deleted successfully');
+    public function soft_delete($id){
+        $products = Product::find($id);
+        $products->delete();
+        return Redirect::to('products')->with(['error' => 'Berhasil Menghapus Produk']);
+    }
+
+    public function destroy($id){
+        Product::where('id', $id)->delete();
+        return Redirect::to('products');    
+    }
+
+    public function upload($id){
+        $products = Product::find($id);
+        return view('product.adminproductimage', compact('products', 'id'));
+    }
+
+    public function upload_image(Request $request, $id){
+        
+        $this->validate($request, [
+            'files.*' => 'required',
+        ]);
+
+        $files = [];
+        foreach ($request->file('files') as $file) {
+            if($file->isValid()){
+                $nama_image = time()."_".$file->getClientOriginalName();
+                $folder = 'uploads/product_images';
+                $file->move($folder,$nama_image);
+                $files[] = [
+                    'product_id' => $id,
+                    'image_name' => $nama_image,
+                    'created_at'=>now(),
+                    'updated_at'=>now(),
+                ];
+            }
+        }
+
+        Product_image::insert($files);
+        return Redirect::to('products')->with(['success' => 'Berhasil Menambahkan Foto']);
+    }
+
+    public function discount($id){
+        $products = Product::find($id);
+        return view('product.admincreatediscount', compact('products', 'id'));
+    }
+
+    public function add_discount(Request $request, $id){
+        $messages = [
+            'required' => ':attribute wajib diisi',
+            'max' => ':attribute Harus Diisi maksimal :max karakter',
+            'min' => ':attribute Harus Diisi minimum :min karakter',
+            'string' => ':attribute Hanya Diisi Huruf dan Angka',
+            'confirmed' => ':attribute Konfirmasi Password Salah',
+            'unique' => ':attribute sudah ada',
+            'email' => 'attribute Format Email Salah',
+        ];
+
+        $this->validate($request,[
+            'percentage' => 'required|unique:discounts|numeric',
+            'start' => 'required|unique:discounts|date',
+            'end' => 'required|date',
+        ],$messages);
+
+    	$discount = new Discount;
+        $discount->percentage = $request->percentage;
+        $discount->id_product = $id;
+    	$discount->start = $request->start;
+    	$discount->end = $request->end;
+        $discount->save();
+        
+        return Redirect::to('/discounts/'.$id)
+       ->with('success','Berhasil Menambah Data Diskon');
+    }
+
+    public function trash(){
+        $products = DB::table('products')
+            ->select('products.*')
+            ->where('products.deleted_at','!=', NULL)
+            ->orderby('id','desc')->paginate(10);
+        $categories = DB::table('product_categories')
+            ->join('product_category_details', 'product_categories.id', '=', 'product_category_details.category_id')
+            ->select('product_categories.*', 'product_category_details.*')
+            ->get();
+        return view('product.admintrash', compact('products', 'categories'));
+    }
+
+    public function restore($id){
+        $products = Product::onlyTrashed()->where('id',$id);
+        $products->restore();
+        return Redirect::to('products-trash')->with(['success' => 'Berhasil Mengembalikan Produk']);
+    }
+
+    public function restore_all(){
+        $products = Product::onlyTrashed();
+        $products->restore();
+        return Redirect::to('products-trash')->with(['success' => 'Berhasil Mengembalikan Semua Produk']);   
+    }
+
+    public function delete($id){
+        Product_Category_Detail::where('product_id',$id)->delete();
+        Discount::where('id_product',$id)->delete();
+        Product_image::where('product_id',$id)->delete();
+        $products = Product::onlyTrashed()->where('id', $id);
+        $products->forceDelete();
+        return Redirect::to('products-trash')->with(['error' => 'Berhasil Menghapus Permanen Produk']);
+    }
+
+    public function delete_all($id){
+        Product_Category_Detail::where('product_id',$id)->delete();
+        Product_image::where('product_id',$id)->delete();
+        $products = Product::onlyTrashed();
+        $products->forceDelete();
+        return Redirect::to('products-trash')->with(['error' => 'Berhasil Menghapus Permanen Semua Produk']);
     }
 }

@@ -236,50 +236,77 @@
 <!--inner block start here-->
 <div class="inner-block">
 <!--market updates updates-->
-      <div class="row">
-         <a href="{{ route('products.create') }}" class="btn btn-success">Add</a>
-         <br><br>
-             <table class="table table-bordered">
-              <thead>
-                 <tr>
-                    <th style="text-align:center;">ID</th>
-                    <th style="text-align:center;">Product Image</th>
-                    <th style="text-align:center;">Product Name</th>
-                    <th style="text-align:center;">Product Price</th>
-                    <th style="text-align:center;">Description</th>
-                    <th style="text-align:center;">Stock</th>
-                    <th style="text-align:center;">Weight</th>
-                    <th style="text-align:center;">Created at</th>
-                    <th style="text-align:center;">Updated at</th>
-                    <td colspan="2" style="text-align:center;">Action</td>
-                 </tr>
-              </thead>
-              <tbody>
-                 @foreach($products as $product)
-                 <tr>
-                    <td>{{ $product->id }}</td>
-                    <td><img src="1585142462.jpg"></td>
-                    <td>{{ $product->product_name }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->description }}</td>
-                    <td>{{ $product->stock }}</td>
-                    <td>{{ $product->weight }}</td>
-                    <td>{{ date('Y-m-d', strtotime($product->created_at)) }}</td>
-                    <td>{{ date('Y-m-d', strtotime($product->updated_at)) }}</td>
-                    <td><a href="{{ route('products.edit',$product->id)}}" class="btn btn-primary">Edit</a></td>
-                    <td>
-                    <form action="{{ route('products.destroy', $product->id)}}" method="post">
-                     {{ csrf_field() }}
-                     @method('DELETE')
-                     <button class="btn btn-danger" type="submit">Delete</button>
-                   </form>
-                   </td>
-                 </tr>
-                 @endforeach
-              </tbody>
-             </table>
-             {!! $products->links() !!}
-      </div>
+		@if ($message = Session::get('success'))
+      		<div class="alert alert-success alert-block">
+        		<button type="button" class="close" data-dismiss="alert">×</button> 
+          		<strong>{{ $message }}</strong>
+      		</div>
+		@endif
+		@if ($message = Session::get('error'))
+      		<div class="alert alert-danger alert-block">
+        		<button type="button" class="close" data-dismiss="alert">×</button> 
+        		<strong>{{ $message }}</strong>
+      		</div>
+    	@endif
+<div class="table">
+		<h2 class="card-title" align="center">List Produk</h2 >
+		<br>
+		<span>
+		<button type="button" class="btn-sm btn-success btn-icon-text" onclick="">
+			<i class="mdi mdi-upload btn-icon-prepend fa fa-plus"></i>     
+			<a href="{{ route('products.create') }}" style="color: white;">Tambah Produk</a>
+		</button>
+		<button type="button" class="btn-sm btn-danger btn-icon-text" onclick="">
+			<i class="mdi  mdi-delete btn-icon-prepend fa fa-trash"></i>
+			<a href="/products-trash" style="color: white">Trash</a>
+		</button>
+		</span>
+		  <table class="table table-striped table-hover" style="width:1100px;">
+			<thead>
+			  <tr>
+				<th >
+					No.
+			 	</th>
+				<th >
+			   		Nama Produk
+				</th>
+				<th >
+				  Kategori
+				</th>
+				<th style="text-align: center;">
+					Diskon
+				</th>
+				<th colspan="3" style="text-align: center;">
+				  Action
+				</th>
+			  </tr>
+			</thead>
+			<tbody>
+			  @foreach($products as $product)
+			  <tr>
+				<td>{{ $loop->iteration }}</td>
+				<td>{{ $product->product_name }}</td>
+				<td>
+				@foreach($categories as $category)
+					@if($product->id == $category->product_id)
+					  <li>{{ $category->category_name }}</li>
+					@endif
+				@endforeach
+				</td>
+				<td align="center"><a class="btn btn-primary fa fa-percent" href="{{ route('discounts.show',$product->id) }}"></a></td>
+				<td align="center">
+					<a class="btn-sm btn-info fa fa-eye" href="{{ route('products.show',$product->id) }}"></a>
+				
+					<a class="btn-sm btn-warning fa fa-pencil" href="{{ route('products.edit',$product->id)}}"></a>
+				
+					<a class="btn-sm btn-danger fa fa-trash" href="/products/delete/{{ $product->id }}" onclick="return confirm('Apa yakin ingin menghapus data ini?')"></a>
+				</td>
+			  </tr>
+			  @endforeach
+			</tbody>
+		  </table>
+		  {!! $products->links() !!}
+  </div>
 <!--market updates end here-->
 <!--mainpage chit-chating-->
 <!--main page chit chating end here-->

@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Dagangbaju.com</title>
+    <link rel="shortcut icon" href="{{asset('assets/User/images/shirt.png')}}" type="image/x-icon">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

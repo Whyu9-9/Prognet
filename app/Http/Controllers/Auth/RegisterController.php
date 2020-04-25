@@ -67,9 +67,9 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'profile_image' => 'assets/User/images/avds_small.jpg',
             'status' => 'Sudah Terdaftar',
             'password' => Hash::make($data['password']),
+            'profile_image' =>"def.png",
         ]);
     }
 }

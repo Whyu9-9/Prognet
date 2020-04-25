@@ -20,7 +20,10 @@
 <!--static chart-->
 <script src="{{ asset('assets/Admin/js/Chart.min.js')}}"></script>
 <!--//charts-->
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 <!--skycons-icons-->
 <script src="{{ asset('assets/Admin/js/skycons.js')}}"></script>
 <!--//skycons-icons-->
@@ -237,55 +240,79 @@
 <div class="chit-chat-layer1"></div>
 <div class="inner-block">
 <!--market updates updates-->
-<table class="table table-bordered" style="width:650px;" align="center">
-    <td>
-        <h2 style="margin-top: 12px;" class="text-center">Add Product</a></h2>
-        <br>
-        <form action="{{ route('products.store') }}" method="POST" name="add_product">
-        {{ csrf_field() }}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Product Name</strong>
-                    <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name">
-                    <span class="text-danger">{{ $errors->first('product_name') }}</span>
+    <div class="container">
+        <div class="row align-items-centre">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-md-8">
+                <div class="component">
+                    <div class="card">
+                        <form class="form-signin" action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                        <div class="card-header">
+                            <center>
+								<h2>Tambah Produk</h2>
+								<br>
+                            </center>
+                        </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Nama Produk</label>
+                            <input type="text" class="form-control" placeholder="Nama Produk" aria-label="Nama Produk" aria-describedby="basic-addon1" name="product_name">
+                        </div>
+                        <div class="form-group">
+                            <label>Harga Satuan</label>
+                            <input type="text" class="form-control" placeholder="Harga Satuan" aria-label="Harga Satuan" aria-describedby="basic-addon1" name="price">
+                        </div>
+                        <div class="form-group">
+                            <label>Stock</label>
+                            <input type="text" class="form-control" placeholder="Stock" aria-label="Stock" aria-describedby="basic-addon1" name="stock">
+                        </div>
+                        <div class="form-group">
+                            <label>Berat Produk</label>
+                            <input type="text" class="form-control" placeholder="Berat Produk" aria-label="Berat Produk" aria-describedby="basic-addon1" name="weight">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Kategori</label>
+							<select name="category_id[]" class="selectpicker form-control" multiple data-live-search="true"  multiple="multiple" required>
+								@foreach ($categories as $category)
+									<option value="{{ $category->id }}">{{ $category->category_name }}</option>
+								@endforeach
+							</select>
+							<br>
+						</div>
+						<div class="form-group">
+							<strong>Description</strong>
+							<textarea class="form-control" col="4" name="description" placeholder="Deskripsi Produk"></textarea>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>Pilih Foto</label>
+								<input type="file" class="form-control" placeholder="Nama Produk" aria-label="Nama Produk" aria-describedby="basic-addon1" name="files[]" multiple required>
+							</div>	
+						</div>
+                            <div class="card-footer" align="center">
+                                <button class="btn btn-md btn-primary btn-icon-text" type="submit">
+									<i class="mdi mdi-arrow-right btn-icon-prepend fa fa-plus"></i> Add Product
+                                </button>
+                            </div>
+                        </form>
+                        
+                    @if (count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                        </ul>
+                    </div>
+                    @endif
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Product Price</strong>
-                    <input type="text" name="price" class="form-control" placeholder="Rp. ">
-                    <span class="text-danger">{{ $errors->first('price') }}</span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Description</strong>
-                    <textarea class="form-control" col="4" name="description" placeholder="Enter Description"></textarea>
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Stock</strong>
-                    <input type="text" class="form-control" col="4" name="stock" placeholder="Enter Stock"></textarea>
-                    <span class="text-danger">{{ $errors->first('stock') }}</span>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group">
-                    <strong>Weight</strong>
-                    <input type="text" class="form-control" col="4" name="weight" placeholder="Gram"></textarea>
-                    <span class="text-danger">{{ $errors->first('weight') }}</span>
-                </div>
-            </div>
-            <div class="col-md-12" align="center">
-                <button type="submit" class="btn btn-primary" >Submit</button>
-            </div>
-        </div> 
-        </form>
-    </td>
-    </table>
+        </div>
+	</div>
+</div>
 <!--market updates end here-->
 <!--mainpage chit-chating-->
 <div class="chit-chat-layer1"></div>
