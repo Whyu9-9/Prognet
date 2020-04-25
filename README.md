@@ -1,6 +1,8 @@
 <p align="center"><img src="https://3.bp.blogspot.com/-IUyIJZ9hT_Y/WLtq_FlHT4I/AAAAAAAAF8o/EWrqnNUTWBQ_H2Jxv9MRv-zPVLv1r26mgCLcB/s1600/logo-teknologi-informasi-universitas-udayana-ti-unud-jhonarendra.png" width="400"></p>
 
 <h1 align="center">------------Praktikum Prognet Kelompok 1------------</h1>
+<h1 align="center">------------        by:Wahyu            ------------</h1>
+
 
 ## About Praktikum Prognet Kelompok 1
 
