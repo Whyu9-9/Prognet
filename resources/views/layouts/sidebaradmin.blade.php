@@ -1,4 +1,3 @@
-@yield('sidebaradmin')
 <!--slider menu-->
 <div class="sidebar-menu" style="height:100%;position: fixed;">
     <div class="logo"> <a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> <a href="#"> <span id="logo" ></span> 
@@ -24,24 +23,24 @@
   </div>
 </div>
 <div class="clearfix"> </div>
-</div>
 <!--slide bar menu end here-->
+</div>
 <script>
-    var toggle = true;
-                
-    $(".sidebar-icon").click(function() {                
-      if (toggle)
-      {
-        $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-        $("#menu span").css({"position":"absolute"});
-      }
-      else
-      {
-        $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-        setTimeout(function() {
-          $("#menu span").css({"position":"relative"});
-        }, 400);
-      }               
-                    toggle = !toggle;
-                });
-    </script>
+  var toggle = true;
+              
+  $(".sidebar-icon").click(function() {                
+    if (toggle)
+    {
+      $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+      $("#menu span").css({"position":"absolute"});
+    }
+    else
+    {
+      $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+      setTimeout(function() {
+        $("#menu span").css({"position":"relative"});
+      }, 400);
+    }               
+                  toggle = !toggle;
+              });
+</script>

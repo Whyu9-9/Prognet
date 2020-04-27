@@ -1,4 +1,3 @@
-@yield('name')
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -241,7 +240,11 @@
 <div class="chit-chat-layer1"></div>
 <div class="inner-block">
 <!--market updates updates-->
-    @yield('content')
+	
+<main class="py-4">
+	@yield('content')
+</main>
+
 </div>
 <!--market updates end here-->
 <!--mainpage chit-chating-->
@@ -252,7 +255,6 @@
 <!--inner block end here-->
 <!--copy rights start here-->
 <!--COPY rights end here-->
-</div>
 </div>
 @extends('layouts.sidebaradmin')
 <!--scrolling js-->
