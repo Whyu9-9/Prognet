@@ -8,15 +8,14 @@
       <li id="menu-home" ><a href="{{ url('/admin') }}"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
       <li><a href="#"><i class="fa fa-user"></i><span>Admins</span><span class="fa fa-angle-right" style="float: right"></span></a>
            <ul id="menu-academico-sub" >
-              <li id="menu-academico-avaliacoes" ><a href="inbox.html">Admin Data</a></li>
-              <li id="menu-academico-avaliacoes" ><a href="inbox.html">Transaction</a></li>
+              <li id="menu-academico-boletim" ><a href="{{ url('/admin/transaksi') }}">Transaction</a></li>
            </ul>
       </li>
        <li><a href="#"><i class="fa fa-shopping-cart"></i><span>E-Commerce</span><span class="fa fa-angle-right" style="float: right"></span></a>
            <ul id="menu-academico-sub" >
               <li id="menu-academico-avaliacoes" ><a href="{{ url('/admin/products') }}">Products</a></li>
               <li id="menu-academico-boletim" ><a href="{{ url('/admin/categories') }}">Categories</a></li>
-              <li id="menu-academico-boletim" ><a href="{{ url('/admin/couriers') }}">Kurir</a></li>
+              <li id="menu-academico-boletim" ><a href="{{ url('/admin/couriers') }}">Courier</a></li>
            </ul>
        </li>
     </ul>

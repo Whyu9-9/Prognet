@@ -16,4 +16,7 @@ class Product_image extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+    public function product(){
+        return $this->belongsTo('App\Product','product_id','id');
+    }
 }

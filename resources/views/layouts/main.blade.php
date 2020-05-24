@@ -11,7 +11,7 @@
 <!-- Custom Theme files -->
 <link href="{{ asset('assets/Admin/css/style.css')}}" rel="stylesheet" type="text/css" media="all"/>
 <!--js-->
-<script src="{{ asset('assets/Admin/js/jquery-2.1.1.min.js')}}"></script> 
+<script src="{{ asset('assets/Admin/js/jquery-3.2.1.min.js')}}"></script> 
 <!--icons-css-->
 <link href="{{ asset('assets/Admin/css/font-awesome.css')}}" rel="stylesheet"> 
 <!--Google Fonts-->
@@ -244,7 +244,6 @@
 <main class="py-4">
 	@yield('content')
 </main>
-
 </div>
 <!--market updates end here-->
 <!--mainpage chit-chating-->
@@ -262,6 +261,58 @@
 		<script src="{{ asset('assets/Admin/js/scripts.js')}}"></script>
 		<!--//scrolling js-->
 <script src="{{ asset('assets/Admin/js/bootstrap.js')}}"> </script>
+<script>
+$('#tombol').click(function(e){
+    e.preventDefault();
+    $('#modalContactForm').modal();
+});
+</script>
+<script>
+	$(document).ready(function(e){
+		$(".status").click(function(e){
+			var index = $(".status").index(this);
+			var myStatus = '';
+			console.log(index);
+			switch(index){
+			  case 0:
+				  myStatus = 'all';
+				  break;
+			  case 1:
+				  myStatus = 'unverified';
+				  break;
+			  case 2:
+				  myStatus = 'waiting';
+				  break;
+			  case 3:
+				  myStatus = 'verified';
+				  break;
+			  case 4:
+				  myStatus = 'delivered';
+				  break;
+			  case 5:
+				  myStatus = 'success';
+				  break;
+			  case 6:
+				  myStatus = 'canceled';
+				  break;
+  
+			}
+  
+			console.log(myStatus);
+		  jQuery.ajax({
+				url: "{{url('/admin/transaksi/sort')}}",
+				method: 'post',
+				data: {
+					_token: $('#signup-token').val(),
+					status: myStatus,
+				},
+				success: function(result){
+				  $('.ganti').html(result.hasil);
+				}
+			});
+		});
+	  });
+  </script>
 <!-- mother grid end here-->
 </body>
 </html>                     

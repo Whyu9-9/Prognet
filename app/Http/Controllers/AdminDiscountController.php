@@ -97,7 +97,6 @@ class AdminDiscountController extends Controller
             'string' => ':attribute Hanya Diisi Huruf dan Angka',
             'confirmed' => ':attribute Konfirmasi Password Salah',
             'unique' => ':attribute sudah ada',
-            'email' => 'attribute Format Email Salah',
         ];
 
         $this->validate($request,[

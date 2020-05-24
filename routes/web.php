@@ -19,12 +19,30 @@ Route::get('/', function () {
 
 //User Route
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeUnauthController@index');
 Route::get('/profile', 'UsersController@profile');
 Route::post('/profile', 'UsersController@update_avatar');
 Route::get('/categories', 'CategoriesController@categories');
-Route::get('/checkout', 'CheckoutController@checkout');
-Route::get('/product', 'ProductController@product');
+Route::post('/checkout', 'CheckoutController@index');
+Route::post('/ongkir', 'CheckoutController@submit');
+Route::get('/kota/{id}', 'CheckoutController@getCities');
+Route::post('/beli', 'TransactionController@store');
+Route::get('/product/{id}', 'HomeController@show');
+Route::get('/product/{id}', 'HomeUnauthController@show');
+Route::post('/show_categori', 'HomeController@show_kategori');
 Route::get('/cart', 'CartController@cart');
+Route::post('/tambah_cart', 'CartController@store');
+Route::post('/update_qty', 'CartController@update');
+Route::get('/cart', 'CartController@show');
+Route::post('/beli', 'TransactionController@store');
+Route::get('/transaksi/{id}', 'TransactionController@index');
+Route::get('/transaksi/detail/{id}', 'TransactionDetailController@index');
+Route::post('/transaksi/detail/status', 'TransactionDetailController@membatalkanPesanan');
+Route::post('/transaksi/detail/proof', 'TransactionDetailController@uploadProof');
+Route::post('/transaksi/detail/review', 'ProductReviewController@store');
+Route::post('/transaksi/detail/review', 'ProductReviewController@store');
+Route::post('/respon', 'ResponseController@store');
+Route::post('/edit/review', 'ProductReviewController@update');
 Route::get('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 //Admin Route
@@ -36,6 +54,9 @@ Route::prefix('admin')->group(function(){
     Route::resource('/products', 'AdminProductController');
     Route::resource('/categories', 'AdminCategoryController');
     Route::resource('/couriers', 'AdminCourierController');
+    Route::get('/transaksi', 'TransactionController@adminIndex');
+    Route::post('/transaksi/sort', 'TransactionController@sort');
+    Route::get('/transaksi/detail/{id}', 'TransactionDetailController@adminIndex');
 });
 
 //Admin Product
@@ -52,6 +73,8 @@ Route::get('/products/destroy/{id}', 'AdminProductController@delete');
 Route::get('/products-delete-all', 'AdminProductController@delete_all');
 Route::resource('product_images','AdminProductImageController');
 Route::resource('discounts','AdminDiscountController');
+Route::resource('response', 'ResponseController');
+
 
 //Admin Product_Categories
 Route::resource('categories', 'AdminCategoryController');

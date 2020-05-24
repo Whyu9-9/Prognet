@@ -5,7 +5,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="Sublime project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dagangbaju.com</title>
+<title>DagangElektronik.com</title>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+<link href="{{asset('assets/css/mdb.min.css')}}" rel="stylesheet">
 <link rel="shortcut icon" href="{{asset('assets/User/images/shirt.png')}}" type="image/x-icon">
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/User/styles/bootstrap4/bootstrap.min.css')}}">
 <link href="{{ asset('assets/User/plugins/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
@@ -22,56 +24,6 @@
 	<!-- Header -->
 
 	@extends('layouts.navbar')
-
-	<!-- Menu -->
-
-	<div class="menu menu_mm trans_300">
-		<div class="menu_container menu_mm">
-			<div class="page_menu_content">
-							
-				<div class="page_menu_search menu_mm">
-					<form action="#">
-						<input type="search" required="required" class="page_menu_search_input menu_mm" placeholder="Search for products...">
-					</form>
-				</div>
-				<ul class="page_menu_nav menu_mm">
-					<li class="page_menu_item has-children menu_mm">
-						<a href="index.html">Home<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Categories<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="product.html">Product<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="cart.html">Cart<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="checkout.html">Checkout<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item has-children menu_mm">
-						<a href="categories.html">Categories<i class="fa fa-angle-down"></i></a>
-						<ul class="page_menu_selection menu_mm">
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-							<li class="page_menu_item menu_mm"><a href="categories.html">Category<i class="fa fa-angle-down"></i></a></li>
-						</ul>
-					</li>
-					<li class="page_menu_item menu_mm"><a href="index.html">Accessories<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="#">Offers<i class="fa fa-angle-down"></i></a></li>
-					<li class="page_menu_item menu_mm"><a href="contact.html">Contact<i class="fa fa-angle-down"></i></a></li>
-				</ul>
-			</div>
-		</div>
-
-		<div class="menu_close"><i class="fa fa-times" aria-hidden="true"></i></div>
-
-		<div class="menu_social">
-			<ul>
-				<li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-			</ul>
-		</div>
-	</div>
 	
 	<!-- Home -->
 
@@ -192,101 +144,77 @@
 			</div>
 		</div>
 	</div>
-
+  
 	<!-- Products -->
-
+	<hr class="mb-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm d-flex justify-content-center">
+				<div class="form-group">
+					<input class="form-check-input radiobtn" name="group100" type="radio" id="radio100" checked value="0">
+					<label for="radio100" class="form-check-label dark-grey-text">All</label>
+				</div>
+			</div>
+			  <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
+		  @foreach ($category as $item)
+			  @if ($item->product->count())
+				  <div class="col-sm d-flex justify-content-center">
+					<div class="form-group">
+						  <input class="form-check-input radiobtn" name="group100" type="radio" id="radio10{{$loop->iteration}}" value="{{$item->id}}">
+						  <label for="radio10{{$loop->iteration}}" class="form-check-label dark-grey-text">{{$item->category_name}}</label>
+					  </div>
+				  </div>
+			  @else
+				  <input type="hidden" id="radio10{{$loop->iteration}}" class="radiobtn">
+			  @endif
+		  @endforeach
+		</div>
+	</div>
+	<hr class="mb-5">
+	<div class="ganti">
 	<div class="products">
 		<div class="container">
 			<div class="row">
 				<div class="col">
-					
 					<div class="product_grid">
-
+						@foreach ($product as $products)
 						<!-- Product -->
 						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_1.jpg" alt=""></div>
-							<div class="product_extra product_new"><a href="categories.html">New</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
+							@foreach ($products->product_image as $image)
+							<div class="product_image"><img style="width:250px;height:250px;" src="/uploads/product_images/{{$image->image_name}}" alt=""></div>
+								@break
+							@endforeach
+							@php
+								$home = new Home;
+                            	$disc = $home->tampildiskon($products->discount);
+							@endphp
+							@if($disc!=0)
+								<div style="background-color:red;"class="product_extra product_new"><a href="categories.html">-{{$disc}}%</a></div>
+							@endif
+								<div class="product_content">
+									<div class="product_title"><a href="/product/{{$products->id}}">{{$products->product_name}}</a></div>
+										@php
+											$home = new Home;
+                            				$harga = $home->diskon($products->discount,$products->price);
+										@endphp
+										@if ($harga != 0)	   
+											<div style="text-decoration:line-through;" class="product_price">Rp.{{number_format($products->price)}}</div>
+											<div style="font-weight:bold;color:black;" class="product_price">Rp.{{number_format($harga)}}</div>
+										@else
+											<div class="product_price">Rp.{{number_format($products->price)}}</div>
+										@endif
+								</div>
 						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_2.jpg" alt=""></div>
-							<div class="product_extra product_sale"><a href="categories.html">Sale</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_3.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_4.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_5.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_6.jpg" alt=""></div>
-							<div class="product_extra product_hot"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_7.jpg" alt=""></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-						<!-- Product -->
-						<div class="product">
-							<div class="product_image"><img src="assets/User/images/product_8.jpg" alt=""></div>
-							<div class="product_extra product_sale"><a href="categories.html">Hot</a></div>
-							<div class="product_content">
-								<div class="product_title"><a href="product.html">Smart Phone</a></div>
-								<div class="product_price">$670</div>
-							</div>
-						</div>
-
-					</div>
-						
+						@endforeach
 				</div>
 			</div>
 		</div>
 	</div>
+	</div>
+	</div>
+	<hr class="mb-5">
 
 	<!-- Ad -->
-
 	<div class="avds_xl">
 		<div class="container">
 			<div class="row">
@@ -303,7 +231,6 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Icon Boxes -->
 
 	<div class="icon_boxes">
@@ -375,6 +302,42 @@
 <script src="{{ asset('assets/User/plugins/parallax-js-master/parallax.min.js')  }}"></script>
 <script src="{{ asset('assets/User/js/custom.js')  }}"></script>
 </footer>
+<script>
+    jQuery(document).ready(function(e){
+        jQuery('.radiobtn').click(function(e){
+            var index = $('.radiobtn').index(this);
+            console.log(jQuery('#radio10'+index).val());
+            jQuery.ajax({
+                url: "{{url('/show_categori')}}",
+                method: 'post',
+                data: {
+                    _token: $('#signup-token').val(),
+                    id: jQuery('#radio10'+index).val(),
+                },
+                success: function(result){
+                    $('.ganti').html(result.hasil);
+                }
+            });
+        });
+
+        jQuery('#search').keyup(function(e){
+          var isi = $('#search').val();
+          jQuery.ajax({
+                url: "{{url('/show_categori')}}",
+                method: 'post',
+                data: {
+                    _token: $('#signup-token').val(),
+                    id: -1,
+                    cari: isi 
+                },
+                success: function(result){
+                    $('.ganti').html(result.hasil);
+                }
+            });
+        });
+    });
+	
+</script>
 
 </body>
 </html>

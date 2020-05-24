@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\users;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Image;
+use Redirect;
 
 class UsersController extends Controller
 {
@@ -26,7 +27,7 @@ class UsersController extends Controller
     		$user->save();
     	}
 
-    	return view('profile', array('user' => Auth::user()) );
+    	return Redirect::to('profile')->with(['success' => 'Berhasil Mengganti Foto Profile']);
 
     }
     /**
@@ -35,25 +36,7 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request){
-        $dataUser=users::where('email',$request->email)->first();
-
-        if($dataUser != NULL){
-            if($dataUser->password == $request->Password){
-                //Login User Sukses
-                Auth::guard('user')->LoginUsingId($dataUser->id);
-                return redirect('/user');
-            }else{
-                return 'gagal';
-            }
-        }
-    }
-    public function logout(){
-        if (Auth::guard('user')->check()){
-            Auth::guard('user')->logout();
-        }
-        return redirect('/login');
-    }
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -81,7 +64,7 @@ class UsersController extends Controller
      * @param  \App\users  $users
      * @return \Illuminate\Http\Response
      */
-    public function show(users $users)
+    public function show(User $users)
     {
         //
     }
@@ -92,7 +75,7 @@ class UsersController extends Controller
      * @param  \App\users  $users
      * @return \Illuminate\Http\Response
      */
-    public function edit(users $users)
+    public function edit(User $users)
     {
         //
     }
@@ -104,7 +87,7 @@ class UsersController extends Controller
      * @param  \App\users  $users
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, users $users)
+    public function update(Request $request, User $users)
     {
         //
     }
@@ -115,7 +98,7 @@ class UsersController extends Controller
      * @param  \App\users  $users
      * @return \Illuminate\Http\Response
      */
-    public function destroy(users $users)
+    public function destroy(User $users)
     {
         //
     }

@@ -8,6 +8,8 @@ use App\Category;
 use App\Discount;
 use App\Product_Category_Detail;
 use App\Product_image;
+use App\Product_Review as Review;
+use App\Response;
 use Redirect;
 
 
@@ -149,7 +151,11 @@ class AdminProductController extends Controller
             ->join('products', 'products.id', '=', 'product_category_details.product_id')
             ->select('product_categories.category_name')
             ->where('products.id', '=', $id)->get();
-        return view('product.adminlistdetail', compact('products', 'image','categories','id'));
+        $reviews = DB::table('product_reviews')->join('users', 'users.id', '=', 'product_reviews.user_id')
+            ->select('product_reviews.*', 'users.name')->where('product_reviews.product_id', '=',$id)
+            ->orderby('product_reviews.id', 'desc')->get();
+        $responses = DB::table('response')->select('response.*')->get();
+        return view('product.adminlistdetail', compact('products','reviews','responses', 'image','categories','id'));
     }
 
     /**
@@ -267,7 +273,6 @@ class AdminProductController extends Controller
             'string' => ':attribute Hanya Diisi Huruf dan Angka',
             'confirmed' => ':attribute Konfirmasi Password Salah',
             'unique' => ':attribute sudah ada',
-            'email' => 'attribute Format Email Salah',
         ];
 
         $this->validate($request,[
@@ -326,5 +331,31 @@ class AdminProductController extends Controller
         $products = Product::onlyTrashed();
         $products->forceDelete();
         return Redirect::to('products-trash')->with(['error' => 'Berhasil Menghapus Permanen Semua Produk']);
+    }
+
+    public function hapus_review($id){
+        $review = Review::find($id);
+        $product_id = $review->product_id;
+        $product_id = $review->product_id;
+        $review->delete();
+
+        $reviews = Review::where('product_id', '=', $product_id)->get();
+        $meanRate = 0;
+        $count = $reviews->count();
+
+        foreach($reviews as $item){
+            $meanRate = $meanRate+$item->rate;
+        }
+        if($count == 0){
+            $meanRate = 0;
+        }else{
+            $meanRate = $meanRate / $count;
+        }
+
+        $product = Product::find($product_id);
+        $product->product_rate = $meanRate;
+        $product->save();
+
+        return redirect('/products/'.$product_id.'#review');
     }
 }

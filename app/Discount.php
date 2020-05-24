@@ -16,4 +16,8 @@ class Discount extends Model
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
+
+    public function product(){
+        return $this->belongsTo('App\Product','id_product', 'id');
+    }
 }

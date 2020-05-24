@@ -21,4 +21,12 @@ class Category extends Model
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function product_category_detail(){
+        return $this->hasMany('App\Product_Category_Detail','category_id','id');
+    }
+
+    public function product(){
+        return $this->belongsToMany('App\Product','product_category_details','category_id', 'product_id')->withPivot('id');
+    }
 }

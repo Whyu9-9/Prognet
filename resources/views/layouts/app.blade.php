@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dagangbaju.com</title>
+    <title>DagangElektronik.com</title>
     <link rel="shortcut icon" href="{{asset('assets/User/images/shirt.png')}}" type="image/x-icon">
 
     <!-- Scripts -->
@@ -25,7 +25,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    Dagangbaju.com
+                    <img style="width:30px;height:30px;margin-top:-5px;" src="{{asset('assets/User/images/shirt.png')}}">
+                    DagangElektronik.com
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

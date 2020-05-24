@@ -23,9 +23,9 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-					<th>
-						No.
-					  </th>
+					        <th>
+						          No.
+					        </th>
                     <th>
                       Nama Kurir
                     </th>
@@ -42,7 +42,7 @@
                     <td>
                         <a class="btn-sm btn-warning fa fa-pencil" href="{{ route('couriers.edit',$courier->id)}}"></a>
 
-                        <form action="{{ route('couriers.destroy', $courier->id)}}" method="post">
+              <form action="{{ route('couriers.destroy', $courier->id)}}" method="post">
 							{{ csrf_field() }}
 							@method('DELETE')
 							<button class="btn btn-danger fa fa-trash" type="submit" onclick="return confirm('Apa yakin ingin menghapus data ini?')"></button>

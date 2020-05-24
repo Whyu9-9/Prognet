@@ -106,7 +106,6 @@ class AdminCourierController extends Controller
             'string' => ':attribute Hanya Diisi Huruf dan Angka',
             'confirmed' => ':attribute Konfirmasi Password Salah',
             'unique' => ':attribute Username sudah ada',
-            'email' => 'attribute Format Email Salah',
         ];
 
         $this->validate($request,[
