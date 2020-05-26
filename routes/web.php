@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 //User Route
+Route::get('/marknotif', 'UsersController@marknotif');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'HomeUnauthController@index');
 Route::get('/profile', 'UsersController@profile');
@@ -57,6 +58,7 @@ Route::prefix('admin')->group(function(){
     Route::get('/transaksi', 'TransactionController@adminIndex');
     Route::post('/transaksi/sort', 'TransactionController@sort');
     Route::get('/transaksi/detail/{id}', 'TransactionDetailController@adminIndex');
+    Route::get('/marknotifadmin', 'AdminController@markReadAdmin');
 });
 
 //Admin Product
@@ -74,6 +76,10 @@ Route::get('/products-delete-all', 'AdminProductController@delete_all');
 Route::resource('product_images','AdminProductImageController');
 Route::resource('discounts','AdminDiscountController');
 Route::resource('response', 'ResponseController');
+Route::post('/admin/transaksi/sort', 'TransactionController@sort');
+Route::post('/report-bulan', 'TransactionController@filterBulan');
+Route::post('/report-tahun', 'TransactionController@filterTahun');
+Route::post('/grafik', 'TransactionController@grafik');
 
 
 //Admin Product_Categories

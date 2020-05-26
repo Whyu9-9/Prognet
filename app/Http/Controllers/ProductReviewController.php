@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use App\Product_Review;
 use App\Product;
+use App\Admin;
+use App\Notifications\AdminNotification;
 
 class ProductReviewController extends Controller
 {
@@ -31,8 +34,15 @@ class ProductReviewController extends Controller
         $produk = Product::find($request->product_id);
         $produk->product_rate = $meanRate;
         $produk->save();
-
-        return response()->json(['success' => 'Review Produk berhasil ditambahkan']);
+        $admin = Admin::find(1);
+        $notif = "<a class='dropdown-item' href='/admin/products/".$produk->id."'>".
+                "<div class='item-content flex-grow'>".
+                  "<h6 class='ellipsis font-weight-normal'></h6>".
+                  "<p class='font-weight-light small-text text-muted mb-0'>Produk diberikan Review!".
+                  "</p>".
+                "</div>".
+              "</a>";
+        $admin->notify(new AdminNotification($notif));
     }
 
     public function update(Request $request){

@@ -95,6 +95,7 @@
 					  <tr>
 						<th>No</th>
 						<th>Nama User</th>
+						<th>Rate</th>
 						<th>Review</th>
 						<th>Response</th>
 						<th>Action</th>
@@ -105,6 +106,7 @@
 						<tr>
 						  <td>{{ $loop->iteration }}</td>
 						  <td>{{ $review->name }}</td>
+						  <td>{{ $review->rate }}</td>
 						  <td>{{ $review->content }}</td>
 						  <td>@foreach($responses as $response)
 								@if($review->id == $response->review_id)
@@ -127,9 +129,6 @@
 								<div class="modal-content">
 								  <div class="modal-header">
 									<h5 class="modal-title" id="exampleModalLongTitle">Response Review</h5>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									  <span aria-hidden="true">&times;</span>
-									</button>
 								  </div>
 								  <div class="modal-body">
 									<form action="{{route('response.store')}}" method="POST">

@@ -102,4 +102,9 @@ class UsersController extends Controller
     {
         //
     }
+    public function marknotif(){
+        $user = User::find(Auth::user()->id);
+        $user->unreadNotifications()->update(['read_at' => now()]);
+        return redirect()->back();
+    }
 }

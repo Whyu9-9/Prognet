@@ -133,9 +133,9 @@
 									<div class="order_list_title">Proof Of Payment</div>
 									<div class="order_list_value ml-auto">
                     @if (is_null($transaksi->proof_of_payment))
-                      Belum upload bukti Pembayaran
+                      Belum di Upload
                     @else
-                      Sudah upload bukti Pembayaran
+                      Sudah di Upload
                     @endif
                   </div>
                 </li>
@@ -414,7 +414,7 @@
               },
               success: function(result){
                 $('#modalTambahReview').modal('hide');
-                alert(result.success);
+                alert('Berhasil Menambah Review');
                 location.reload();
               }
           });

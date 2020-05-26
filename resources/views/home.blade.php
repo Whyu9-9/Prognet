@@ -193,6 +193,10 @@
 							@endif
 								<div class="product_content">
 									<div class="product_title"><a href="/product/{{$products->id}}">{{$products->product_name}}</a></div>
+									<span class="badge badge-primary mb-2">Rating: {{$products->product_rate}} <i class="fa fa-star"></i></span>
+									@if ($products->stock == 0)
+									<span class="badge badge-danger mb-2">Out Of Stock!</span>
+									@endif	
 										@php
 											$home = new Home;
                             				$harga = $home->diskon($products->discount,$products->price);
