@@ -52,16 +52,12 @@
                     <strong>Opsi</strong>
                   </th>
                 </tr>
-  
               </thead>
               <!-- Table head -->
-  
               <!-- Table body -->
               <tbody style="color:#666666;">
-  
                 <!-- First row -->
                 @foreach ($transaksi as $item)
-                
                 <tr> 
                   <td>
                     @if ($item->status == 'unverified' & $item->timeout > date('Y-m-d H:i:s'))
@@ -73,10 +69,8 @@
                     @endphp
                           <span class="badge badge-danger">Sisa Waktu Pembayaran: {{$tenggat->h}} Jam, {{$tenggat->i}} Menit</span>
                      @endif
-  
                   </td>               
                   <td>
-  
                       <strong>{{$item->id}}</strong>
                   </td>
                   <td>
@@ -97,23 +91,15 @@
                   <td>
                     <a href="/transaksi/detail/{{$item->id}}"><strong>Lihat Detail</strong></a>
                   </td>
-                    
                 </tr>
-              
                 @endforeach
                 <!-- First row -->
-  
-  
               </tbody>
               <!-- Table body -->
-  
             </table>
-  
           </div>
           <!-- Shopping Cart table -->
-  
         </section>
-  
       </div>
       <!-- Main Container -->
 </div>

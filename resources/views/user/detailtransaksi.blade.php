@@ -15,11 +15,8 @@
 <body>
 
 <div class="super_container">
-
 	@extends('layouts.navbar')
-	
 	<!-- Home -->
-
 	<div class="home">
 		<div class="home_container">
 			<div class="home_background" style="background-image:url(/assets/User/images/cart.jpg)"></div>
@@ -42,13 +39,10 @@
 			</div>
 		</div>
 	</div>
-
 	<!-- Checkout -->
-	
 	<div class="checkout">
 		<div class="container">
 			<div class="row">
-
 				<!-- Billing Info -->
 				<div class="col-lg-6">
 					<div class="billing checkout_section">
@@ -92,14 +86,11 @@
 						</div>
 					</div>
 				</div>
-
 				<!-- Order Info -->
-
 				<div class="col-lg-6">
 					<div class="order checkout_section">
 						<div class="section_title">Your order</div>
 						<div class="section_subtitle">Order Summary</div>
-
 						<!-- Order details -->
 						<div class="order_list_container">
 							<ul class="order_list">
@@ -161,9 +152,7 @@
                           <input type="hidden" name="status" value="2">
                           <button style="margin-left:126px;" type="submit" class="btn btn-primary btn-sm">Pesanan Sudah Sampai</button>
                         </form>
-                    </div>  
-                    @else
-                        
+                    </div> 
                       @endif
                   @endif
                       <div class="d-flex justify-content-center">
@@ -179,39 +168,24 @@
 	</div>
 	<div class="container ganti">
     <section class="section my-5 pb-5">
-
       <!-- Shopping Cart table -->
       <div style="color:#333333;" class="table-responsive">
         <h1 align="center">Rincian Produk</h1>
-
         <table class="table product-table table-cart-v-1">
-
           <!-- Table head -->
           <thead>
-
             <tr>
-
               <th></th>
-
               <th class="font-weight-bold">
-
                 <strong>Product</strong>
-
               </th>
-
               <th></th>
-
               <th class="font-weight-bold">
                 <strong>Diskon</strong>
               </th>
-
               <th class="font-weight-bold">
-
                 <strong>Price</strong>
-
               </th>
-
-
               <th class="font-weight-bold">
 
                 <strong>QTY</strong>
@@ -220,9 +194,7 @@
               <th></th>
               @if ($transaksi->status == 'success')
               <th class="font-weight-bold">
-
-                <strong>Berikan Riview</strong>
-
+                <strong>Berikan Review</strong>
               </th> 
               @endif
             </tr>
@@ -235,10 +207,7 @@
 
             <!-- First row -->
             @foreach ($transaksi->transaction_detail as $item)
-                
-            
             <tr>
-
               <th scope="row">
                   @foreach ($item->product->product_image as $image)
                   
@@ -246,7 +215,6 @@
                       @break
                   @endforeach
               </th>
-
               <td>
                 <h5 class="mt-3">
                   <input type="hidden" name="id" id="product_id{{$loop->iteration-1}}" value="{{$item->product->id}}">

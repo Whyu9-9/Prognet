@@ -7,15 +7,6 @@
 						<div class="logo"><a href="/home"><img style="width:50px;height:50px;margin-top:-5px;margin-right:10px;" src="{{asset('assets/User/images/shirt.png')}}">DagangElektronik.com</a></div>
 						<nav class="main_nav">
 							<ul>
-								<li class="hassubs active">
-									<a href="/home">Home</a>
-									<ul>
-										@auth
-										<li><a href="/cart">Cart</a></li>
-									<li><a href="/transaksi/{{Auth::user()->id}}">Transaction</a></li>
-										@endauth
-									</ul>
-								</li>
 								@auth
 								<li class="hassubs active">
 									<?php 
@@ -26,7 +17,7 @@
 									<a class="fa fa-bell-o"></a>
 									<a href="/home"><span class="badge badge-pill badge-danger">{{$notif_count}}</span></a>
 									<ul >
-										<center><a href="/marknotif" class="btn" style="background-color: white;">Baca Semua</a></center>
+										<center><a href="/marknotif" class="btn" style="background-color: white;">Mark All As Read</a></center>
 										@foreach($notifications as $notif)
 											<li>{!!$notif->data!!}</li>
 											<br>
@@ -34,6 +25,15 @@
 									</ul>
 								</li>
 								@endauth
+								<li class="hassubs active">
+									<a href="/home">Home</a>
+									<ul>
+										@auth
+										<li><a href="/cart">Cart</a></li>
+									<li><a href="/transaksi/{{Auth::user()->id}}">Transaction</a></li>
+										@endauth
+									</ul>
+								</li>
 								@guest
 								<li class="hassubs active">
 									<a class="fa fa-bell-o" href="/home"><span class="badge badge-pill badge-danger">0</span></a>

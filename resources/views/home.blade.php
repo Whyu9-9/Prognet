@@ -151,7 +151,7 @@
 		<div class="row">
 			<div class="col-sm d-flex justify-content-center">
 				<div class="form-group">
-					<input class="form-check-input radiobtn" name="group100" type="radio" id="radio100" checked value="0">
+					<input class="form-check-input radiobtn" name="group100" type="radio" id="radio100" selected checked value="0">
 					<label for="radio100" class="form-check-label dark-grey-text">All</label>
 				</div>
 			</div>
