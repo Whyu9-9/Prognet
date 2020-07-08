@@ -139,7 +139,7 @@
 				color: black;
 			  }
 			">
-			
+
 			@for ($i = 2019; $i <= date('Y'); $i++)
 				<option value="{{$i}}" @if ($i == date('Y'))
 					selected
@@ -147,6 +147,7 @@
 			@endfor
 			</select> <i class="mdi mdi-diamond mdi-24px float-right"></i>
 			</h4>
+			
 			<h2 class="mb-2">Jumlah Transaksi: <span><strong id="total-tahun">{{$transaksi_tahun->count()}}</strong></span></h2>
 			<p>Unverified Transaction <span> <strong id="unverified-tahun">{{$status_tahun['unverified']}}</strong></span></p>
 			<p>Expired Transaction <span><strong id="expired-tahun">{{$status_tahun['expired']}}</strong></span></p>
