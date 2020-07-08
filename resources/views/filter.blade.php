@@ -34,6 +34,7 @@
                     @else
                     <div class="product_price">Rp.{{number_format($products->price)}}</div>
                     @endif
+                    
                 </div>
                 </div>
                 @endforeach
